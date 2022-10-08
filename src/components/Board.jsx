@@ -429,10 +429,10 @@ const Board = () => {
             ""
           )}
         </div>
-        <div className="flex justify-evenly md:w-[30rem] w-[15rem] items-center h-fit">
+        <div className="flex justify-evenly md:w-[30rem] w-[15rem] items-center h-fit gap-2">
           <Score player={1} score={scores} />
           <button
-            className="md:w-[6rem] w-fit px-2  md:rounded-lg bg-emerald-500  py-2 text-white"
+            className="md:w-[6rem] w-fit px-2  rounded-lg bg-emerald-500  py-2 text-white"
             onClick={handleReset}
           >
             Reset
