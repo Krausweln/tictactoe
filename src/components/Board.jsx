@@ -27,17 +27,9 @@ const Board = () => {
     const randIndex = Math.round(Math.random() * 3);
     const Move = randMove;
     const Index = randIndex;
-    // setBoard(prev => {
-    //   moves += 1;
-    //   return prev[randIndex][randMove]
-    // })
+
     moves += 1;
-    // if (!winner) {
-    //   // const move = board[Index][Move]
-    //   setBoard((prev) => {
-    //     prev  ? []
-    //    })
-    // }
+
     if (!winner && board[Index][Move] === 9) {
       handleBoardChange(Index, Move);
     } else if (
@@ -69,21 +61,35 @@ const Board = () => {
       [9, 9, 9],
     ]);
     setWinner(null);
-    setPlayer((prev) => (prev === 1 ? (prev = 2) : (prev = 1)));
+  };
+
+  const playAgain = () => {
+    if (winner) {
+      handleReset();
+    }
   };
 
   const handleBoardChange = (x, y) => {
+    // toggle the player
     if (!winner) {
       setPlayer((prev) => (prev === 1 ? (prev = 2) : (prev = 1)));
     } else {
       return;
     }
+
+    // set the board value
     if (!winner) {
       setBoard((prev) => [...prev, (prev[x][y] = player)]);
     } else {
       return;
     }
 
+    // reset winner
+    if (winner) {
+      setWinner(null);
+    }
+
+    // the loser gets to play first in the next round
     if (winner === 1) {
       setPlayer(2);
     } else if (player === 2) {
@@ -96,7 +102,6 @@ const Board = () => {
       setWinner(1);
       setScores((prev) => {
         let copy = Object.assign({}, prev);
-        // let copy = prev;
         copy.p1 += 1;
         return copy;
       });
@@ -104,7 +109,6 @@ const Board = () => {
       setWinner(1);
       setScores((prev) => {
         let copy = Object.assign({}, prev);
-        // let copy = prev;
         copy.p1 += 1;
         return copy;
       });
@@ -112,7 +116,6 @@ const Board = () => {
       setWinner(1);
       setScores((prev) => {
         let copy = Object.assign({}, prev);
-        // let copy = prev;
         copy.p1 += 1;
         return copy;
       });
@@ -120,7 +123,6 @@ const Board = () => {
       setWinner(1);
       setScores((prev) => {
         let copy = Object.assign({}, prev);
-        // let copy = prev;
         copy.p1 += 1;
         return copy;
       });
@@ -128,7 +130,6 @@ const Board = () => {
       setWinner(1);
       setScores((prev) => {
         let copy = Object.assign({}, prev);
-        // let copy = prev;
         copy.p1 += 1;
         return copy;
       });
@@ -136,7 +137,6 @@ const Board = () => {
       setWinner(1);
       setScores((prev) => {
         let copy = Object.assign({}, prev);
-        // let copy = prev;
         copy.p1 += 1;
         return copy;
       });
@@ -144,7 +144,6 @@ const Board = () => {
       setWinner(1);
       setScores((prev) => {
         let copy = Object.assign({}, prev);
-        // let copy = prev;
         copy.p1 += 1;
         return copy;
       });
@@ -152,7 +151,6 @@ const Board = () => {
       setWinner(1);
       setScores((prev) => {
         let copy = Object.assign({}, prev);
-        // let copy = prev;
         copy.p1 += 1;
         return copy;
       });
@@ -160,7 +158,6 @@ const Board = () => {
       setWinner(2);
       setScores((prev) => {
         let copy = Object.assign({}, prev);
-        // let copy = prev;
         copy.p2 += 1;
         return copy;
       });
@@ -168,7 +165,6 @@ const Board = () => {
       setWinner(2);
       setScores((prev) => {
         let copy = Object.assign({}, prev);
-        // let copy = prev;
         copy.p2 += 1;
         return copy;
       });
@@ -176,7 +172,6 @@ const Board = () => {
       setWinner(2);
       setScores((prev) => {
         let copy = Object.assign({}, prev);
-        // let copy = prev;
         copy.p2 += 1;
         return copy;
       });
@@ -184,7 +179,6 @@ const Board = () => {
       setWinner(2);
       setScores((prev) => {
         let copy = Object.assign({}, prev);
-        // let copy = prev;
         copy.p2 += 1;
         return copy;
       });
@@ -192,7 +186,6 @@ const Board = () => {
       setWinner(2);
       setScores((prev) => {
         let copy = Object.assign({}, prev);
-        // let copy = prev;
         copy.p2 += 1;
         return copy;
       });
@@ -200,7 +193,6 @@ const Board = () => {
       setWinner(2);
       setScores((prev) => {
         let copy = Object.assign({}, prev);
-        // let copy = prev;
         copy.p2 += 1;
         return copy;
       });
@@ -208,7 +200,6 @@ const Board = () => {
       setWinner(2);
       setScores((prev) => {
         let copy = Object.assign({}, prev);
-        // let copy = prev;
         copy.p2 += 1;
         return copy;
       });
@@ -216,10 +207,16 @@ const Board = () => {
       setWinner(2);
       setScores((prev) => {
         let copy = Object.assign({}, prev);
-        // let copy = prev;
         copy.p2 += 1;
         return copy;
       });
+    } else if (
+      !board[0].includes(9) &&
+      !board[1].includes(9) &&
+      !board[2].includes(9) &&
+      !winner
+    ) {
+      setWinner(9);
     }
   };
 
@@ -299,26 +296,45 @@ const Board = () => {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col justify-center items-center bg-[#202020] gap-2">
+    <div className="w-full h-screen relative flex flex-col justify-center items-center bg-[#202020] gap-2">
       {/* <div
         className="fixed top-[32%] left-[10%]"
         style={{ writingMode: "vertical-rl", textOrientation: "upright" }}
       >
         <p className="text-white">made by rizqi</p>
       </div> */}
-      <div className="flex justify-between md:w-[30rem] w-[15rem]">
-        <div className="text-white">
-          {winner === 1 ? (
-            <WinnerBadge text={"Player one wins"} />
-          ) : winner === 2 ? (
-            <WinnerBadge text={"Player two wins"} />
-          ) : winner === 9 ? (
-            "draw"
-          ) : (
-            ""
-          )}
+      {winner ? (
+        <div
+          className="absolute w-full h-screen bg-[#252525] opacity-70 z-50 onDoubleClick={playAgain} text-center flex justify-center items-center"
+          onDoubleClick={playAgain}
+        >
+          <p className="text-white text-2xl">
+            <span>Double click / tap to play again </span>
+          </p>
         </div>
-        <PlayersTurn player={player} />
+      ) : (
+        ""
+      )}
+      <div className="flex justify-between md:w-[30rem] w-[15rem]">
+        {winner ? (
+          <div
+            className="text-white"
+            style={{ width: winner ? "100%" : "w-fit" }}
+          >
+            {winner === 1 ? (
+              <WinnerBadge text={"Player one wins"} />
+            ) : winner === 2 ? (
+              <WinnerBadge text={"Player two wins"} />
+            ) : winner === 9 ? (
+              <WinnerBadge text={"Draw"} />
+            ) : (
+              ""
+            )}
+          </div>
+        ) : (
+          ""
+        )}
+        {winner ? "" : <PlayersTurn player={player} />}
       </div>
       <div className="md:w-[30rem] md:h-[33.5rem] w-[15rem] h-[18.875rem] grid grid-cols-3 grid-rows-3  rounded-lg antialiased gap-4">
         <div
@@ -431,12 +447,7 @@ const Board = () => {
         </div>
         <div className="flex justify-evenly md:w-[30rem] w-[15rem] items-center h-fit gap-2">
           <Score player={1} score={scores} />
-          <button
-            className="md:w-[6rem] w-fit px-2  rounded-lg bg-emerald-500  py-2 text-white"
-            onClick={handleReset}
-          >
-            Reset
-          </button>
+
           <Score player={2} score={scores} />
         </div>
       </div>
