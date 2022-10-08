@@ -300,13 +300,13 @@ const Board = () => {
 
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center bg-[#202020] gap-2">
-      <div
+      {/* <div
         className="fixed top-[32%] left-[10%]"
         style={{ writingMode: "vertical-rl", textOrientation: "upright" }}
       >
         <p className="text-white">made by rizqi</p>
-      </div>
-      <div className="flex justify-between w-[30rem]">
+      </div> */}
+      <div className="flex justify-between md:w-[30rem] w-[15rem]">
         <div className="text-white">
           {winner === 1 ? (
             <WinnerBadge text={"Player one wins"} />
@@ -320,7 +320,7 @@ const Board = () => {
         </div>
         <PlayersTurn player={player} />
       </div>
-      <div className="w-[30rem] h-[33.5rem] grid grid-cols-3 grid-rows-3  rounded-lg antialiased gap-4">
+      <div className="md:w-[30rem] md:h-[33.5rem] w-[15rem] h-[18.875rem] grid grid-cols-3 grid-rows-3  rounded-lg antialiased gap-4">
         <div
           className="bg-white text-black flex justify-center items-center border border-black rounded-lg text-5xl subpixel-antialiased"
           onClick={board1}
@@ -429,10 +429,10 @@ const Board = () => {
             ""
           )}
         </div>
-        <div className="flex justify-evenly w-[30rem] items-center h-fit">
+        <div className="flex justify-evenly md:w-[30rem] w-[15rem] items-center h-fit">
           <Score player={1} score={scores} />
           <button
-            className="w-[6rem] rounded-lg bg-emerald-500  py-2 text-white"
+            className="md:w-[6rem] w-fit px-2  md:rounded-lg bg-emerald-500  py-2 text-white"
             onClick={handleReset}
           >
             Reset
